@@ -16,43 +16,52 @@ import java.util.Map;
 @Service
 public class JWTservice {
 
-    private static final String SECRET_KEY = "THIS_IS_A_VERY_SECURE_SECRET_KEY_AT_LEAST_32_CHARS_LONG";
+    // Use a secure, long secret key (at least 32 chars for HS256)
+    private final String SECRET_KEY = "THIS_IS_A_VERY_SECURE_SECRET_KEY_AT_LEAST_32_CHARS";
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
-    // ✅ Generate token with user ID + role
+    // Generate JWT token for a user
     public String GenerateToken(CustomUsers user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getId());
+        // Add custom claims if needed, for example user roles
+        claims.put("username", user.getUsername());
         claims.put("email", user.getEmail());
-        claims.put("role", user.getRole());
+        claims.put("id",user.getId());
+        return createToken(claims, user.getUsername());
+    }
+
+    private String createToken(Map<String, Object> claims, String subject) {
+        long now = System.currentTimeMillis();
+        long expirationTime = 1000 * 60 * 60; // 1 hour in milliseconds
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(user.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
+                .setSubject(subject)
+                .setIssuedAt(new Date(now))
+                .setExpiration(new Date(now + expirationTime))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // ✅ Extract user details safely
     public UserDetailsDTO extractUserDetails(String token) {
         Claims claims = extractClaims(token);
-        return new UserDetailsDTO(
-                (String) claims.get("id"),
-                (String) claims.get("email"),
-                (String) claims.get("role")
-        );
+
+    UserDetailsDTO userDetails=new UserDetailsDTO((String) claims.get("id"), (String) claims.get("email"), (String) claims.get("role"));
+
+
+
+
+        return userDetails;
+    }
+    public Claims extractClaims(String token) {
+        return Jwts.parser()               // use parserBuilder() instead of deprecated parser()
+                .setSigningKey(getSigningKey()) // provide the secret key
+                .build()
+                .parseClaimsJws(token)         // parse and validate signature
+                .getBody();                    // return claims
     }
 
-    public Claims extractClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
 }

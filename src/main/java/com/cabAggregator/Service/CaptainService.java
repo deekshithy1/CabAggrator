@@ -50,7 +50,7 @@ public class CaptainService implements ICaptainService {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            captainLoginDTO.identifier(),
+                            captainLoginDTO.email(),
                             captainLoginDTO.password()
                     )
             );

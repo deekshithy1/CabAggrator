@@ -1,4 +1,4 @@
 package com.cabAggregator.DTO;
 
-public record CaptainLoginDTO(String identifier,String password) {
+public record CaptainLoginDTO(String email,String password) {
 }
