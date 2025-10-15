@@ -15,7 +15,7 @@ public interface ICaptainService {
 
 
     Captain registrerCaptain(CaptainRegistrationDTO captainRegistrationDTO);
-    public Captain Login(CaptainLoginDTO captainLoginDTO);
+     String Login(CaptainLoginDTO captainLoginDTO);
 
     Ride acceptRide(String rideId);
     Captain getCaptainProfile(String captainId);

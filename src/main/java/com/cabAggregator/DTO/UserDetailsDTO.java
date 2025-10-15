@@ -1,9 +1,8 @@
 package com.cabAggregator.DTO;
 
-import com.cabAggregator.Model.Ride;
+public record UserDetailsDTO(
+        String id,
+        String email,
+        String role // "USER" or "CAPTAIN"
 
-import java.util.List;
-
-public record UserDetailsDTO(String id,String name, String email, String mobileNumber) {
-
-}
+) {}

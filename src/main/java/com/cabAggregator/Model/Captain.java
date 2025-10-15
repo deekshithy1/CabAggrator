@@ -21,6 +21,7 @@ public class Captain {
     private Status status;
     private Vehicle vehicle;
     private Location location;
+    private  String mobileNumber;
 
     public boolean matchPassword(String enteredPassword) {
         return this.password.equals(enteredPassword);

@@ -3,40 +3,56 @@ package com.cabAggregator.Service;
 import com.cabAggregator.Model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Collections;
 
 public class CustomUsers implements UserDetails {
 
-    private final User user;
+    private final String id;
+    private final String email;
+    private final String password;
+    private final String role; // e.g., "USER" or "CAPTAIN"
 
     public CustomUsers(User user) {
-        this.user = user;
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.role = "USER";
     }
 
-    // ✅ Expose user id for later use
-    public String getId() {
-        return user.getId();
+    public CustomUsers(String id, String email, String password, String role) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
-    public String getEmail(){
-        return user.getEmail();
+
+    public String getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // You can return roles here if your User has roles
+        // You can add role-based authorities if needed
         return Collections.emptyList();
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return email;
     }
 
     @Override
