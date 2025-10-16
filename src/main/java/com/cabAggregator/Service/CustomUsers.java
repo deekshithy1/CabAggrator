@@ -1,5 +1,6 @@
 package com.cabAggregator.Service;
 
+import com.cabAggregator.Model.Captain;
 import com.cabAggregator.Model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,12 +21,14 @@ public class CustomUsers implements UserDetails {
         this.role = "USER";
     }
 
-    public CustomUsers(String id, String email, String password, String role) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public CustomUsers(Captain captain) {
+        this.id = captain.getId();
+        this.email = captain.getEmail();
+        this.password = captain.getPassword();
+        this.role = "CAPTAIN";
     }
+
+
 
     public String getId() {
         return id;

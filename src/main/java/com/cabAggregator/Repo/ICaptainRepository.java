@@ -8,5 +8,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Optional;
 
 public interface ICaptainRepository extends MongoRepository<Captain,String> {
-    UserDetails findByEmail(String email);
+    Optional<Captain> findByEmail(String email);
 }

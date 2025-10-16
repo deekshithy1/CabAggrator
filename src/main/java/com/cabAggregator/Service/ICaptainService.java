@@ -23,4 +23,5 @@ public interface ICaptainService {
     Ride cancelRide(String rideId,getLocationDTO getLocationdto);
 
 
+    List<Captain> getallCaptains();
 }

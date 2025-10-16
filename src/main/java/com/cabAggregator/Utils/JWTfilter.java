@@ -24,7 +24,8 @@ public class JWTfilter extends OncePerRequestFilter {
             "/login",
             "/register",
             "/captain-register",
-            "/captain-login"
+            "/captain-login",
+            "/Get-allcaptains"
     );
 
     public JWTfilter(JWTservice jwtService) {

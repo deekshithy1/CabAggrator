@@ -3,11 +3,8 @@ package com.cabAggregator.Model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Optional;
-
-@Document(collection = "captains")
+@Document(value = "captains")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Captain {
 

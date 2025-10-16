@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,11 +39,13 @@ public class CaptainService implements ICaptainService {
     @Override
     public Captain registrerCaptain(CaptainRegistrationDTO captainRegistrationDTO) {
         Captain captain = new Captain();
+//        captain.setFullname(Captain.FullName.builder().build().setFirstname(captainRegistrationDTO.fullname()));
         captain.setEmail(captainRegistrationDTO.email());
         captain.setPassword(passwordEncoder.encode(captainRegistrationDTO.password()));
         captain.setDLNO(captainRegistrationDTO.DLNO());
         captain.setVehicle(captainRegistrationDTO.vehicle());
-        return captainRepository.save(captain);
+           captainRepository.save(captain);
+        return  captain ;
     }
 
     @Override
@@ -121,5 +124,10 @@ public class CaptainService implements ICaptainService {
         ride.setFare(null);
 
         return rideRepository.save(ride);
+    }
+
+    @Override
+    public List<Captain> getallCaptains() {
+        return captainRepository.findAll();
     }
 }

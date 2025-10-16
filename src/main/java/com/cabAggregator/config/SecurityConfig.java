@@ -33,7 +33,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/register", "/login", "/captain-register","captain-login").permitAll()
+                        .requestMatchers("/register", "/login", "/captain-register","captain-login","/Get-allcaptains").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
